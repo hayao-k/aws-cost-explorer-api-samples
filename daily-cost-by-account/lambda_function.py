@@ -108,7 +108,7 @@ def lambda_handler(event, context):
         renamed_cost = cost.rename(
             columns={'Metrics.NetUnblendedCost.Amount': item['TimePeriod']['Start']}
         )
-        merged_cost = pandas.merge(merged_cost, renamed_cost, on='Account Id', how='right')
+        merged_cost = pandas.merge(merged_cost, renamed_cost, on='Account Id', how='outer')
 
     daily_cost = pandas.merge(account_list, merged_cost, on='Account Id', how='right')
     daily_cost.to_csv(output_file, index=False)
